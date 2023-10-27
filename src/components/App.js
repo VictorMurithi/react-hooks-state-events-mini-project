@@ -9,6 +9,11 @@ function App() {
   const [tasks, setTasks] = useState(TASKS);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  const deleteTask = (taskId) => {
+    console.log("Delete task with ID: ", taskId);
+    setTasks(tasks.filter((task) => task.id !== taskId));
+  };
+
   const addNewTask = (newTask) => {
     const updatedTasks = [...tasks];
     updatedTasks.push({
@@ -30,7 +35,7 @@ function App() {
       <h2>My tasks</h2>
       <CategoryFilter categories={CATEGORIES} filterTasks={filterTasks} />
       <NewTaskForm categories={CATEGORIES} onTaskFormSubmit={addNewTask} tasks={tasks} setTasks={setTasks} />
-      <TaskList tasks={filteredTasks} selectedCategory={selectedCategory}/>
+      <TaskList tasks={filteredTasks} selectedCategory={selectedCategory} deleteTask={deleteTask}/>
     </div>
   );
 }
