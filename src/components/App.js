@@ -9,7 +9,15 @@ function App() {
   const [tasks, setTasks] = useState(TASKS);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-
+  const addNewTask = (newTask) => {
+    const updatedTasks = [...tasks];
+    updatedTasks.push({
+      id: tasks.length + 1,
+      ...newTask,
+    });
+    setTasks(updatedTasks);
+  };
+  
   const filterTasks = (category) => {
     setSelectedCategory(category);
   };
@@ -21,7 +29,7 @@ function App() {
     <div className="App">
       <h2>My tasks</h2>
       <CategoryFilter categories={CATEGORIES} filterTasks={filterTasks} />
-      <NewTaskForm categories={CATEGORIES} tasks={tasks} setTasks={setTasks} />
+      <NewTaskForm categories={CATEGORIES} onTaskFormSubmit={addNewTask} tasks={tasks} setTasks={setTasks} />
       <TaskList tasks={filteredTasks} selectedCategory={selectedCategory}/>
     </div>
   );
